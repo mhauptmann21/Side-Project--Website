@@ -1,0 +1,24 @@
+// custom variable
+$primary: #d4af37;
+$secondary: #0c0c0c;
+$light: #1a1a1a;
+$dark: #000;
+$third: #ccc;
+$fourth: #8c7a3a;
+$gradient: linear-gradient(180deg, rgba(#d4af37, .6), rgba(#8c7a3a, .15));
+
+
+// import the functions & variables
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+
+$custom-theme-colors: (
+    $third: #84a98c,
+    $fourth: #8c7a3a,
+    
+);
+
+$them-colors: map-merge($custom-theme-colors, $theme-colors);
+
+// import bootstrap
+@import '../node_modules/bootstrap/scss/bootstrap.scss'
