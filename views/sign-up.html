@@ -1,0 +1,210 @@
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Ninja Pro - The Book</title>
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <style>
+        section {
+            padding: 60px 0;
+        }
+        .valid {
+            color: green;
+        }
+
+        .invalid {
+            color: red;
+        }
+
+        #password-rules {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-md sticky-top navbar-light bg-light">
+        <div class="container-xxl">
+            <a href="index.html" class="navbar-brand">
+                <span class="fw-bold text-primary">
+                    <img class="img-fluid" src="public/logo.png" alt="Responsive Image"
+                        style="width: 80px; height: 80px">
+                    AI Tatical Marketing
+                </span>
+            </a>
+
+            <!-- toggle button for mobile nav -->
+            <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav"
+                aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- navbar links  -->
+            <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="pricing.html">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="contact.html">Get in Touch</a>
+                    </li>
+                    <li class="nav-item ms-2 d-none d-md-inline">
+                        <a class="btn btn-outline-primary " href="sign-up.html">Sign-up!</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- contact form -->
+    <section id="contact" class="bg-white">
+        <div class="container-lg">
+            <div class="text-center">
+                <h2>Register Now!</h2>
+            </div>
+
+            <div class="row justify-content-center my-5">
+
+                <div class="col-lg-6 border-dark">
+                    <form>
+                        <label for="email" class="form-label">Email address:</label>
+                        <div class="mb-4 input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                            <input type="email" class="form-control" id="email" placeholder="e.g. mario@example.com">
+                            <!-- tooltip -->
+                            <span class="input-group-text">
+                                <span class="tt" data-bs-placement="bottom"
+                                    title="Enter an email address we can reply to.">
+                                    <i class="bi bi-question-circle text-muted"></i>
+                                </span>
+                            </span>
+                        </div>
+
+                        <label for="password" class="form-label">Password:</label>
+                        <div class="mb-4 input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                            <input type="password" class="form-control" id="pass"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" >
+                            
+                            <!-- tooltip -->
+                            <span class="input-group-text">
+                                <span class="tt" data-bs-placement="bottom" title="Enter an email address we can reply to.">
+                                    <i class="bi bi-question-circle text-muted"></i>
+                                </span>
+                            </span>
+                            <div id="passwordHelpBlock" class="form-text">
+                                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special
+                                characters, or emoji.
+                            </div>
+                        </div>
+
+                        <div class="mb-4 text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div class="text-center" id="message">
+                    <p id="lower" class="invalid">• At least one lowercase letter</p>
+                    <p id="upper" class="invalid">• At least one uppercase letter</p>
+                    <p id="number" class="invalid">• At least one number</p>
+                    <p id="length" class="invalid">• Minimum 8 characters</p>
+                </div>
+
+                <script>
+                    const password = document.getElementById("pass");
+
+                    const lower = document.getElementById("lower");
+                    const upper = document.getElementById("upper");
+                    const number = document.getElementById("number");
+                    const length = document.getElementById("length");
+
+                    const submitBtn = document.getElementById("submit");
+                    const rulesBox = document.getElementById("message");
+
+                    password.onfocus = () => {
+                        rulesBox.style.display = "block";
+                    };
+
+                    password.onblur = () => {
+                        rulesBox.style.display = "none";
+                    };
+
+                    password.onkeyup = () => {
+                        const value = password.value;
+
+                        // Lowercase
+                        if (/[a-z]/.test(value)) {
+                            lower.classList.add("valid");
+                            lower.classList.remove("invalid");
+                        } else {
+                            lower.classList.add("invalid");
+                            lower.classList.remove("valid");
+                        }
+
+                        // Uppercase
+                        if (/[A-Z]/.test(value)) {
+                            upper.classList.add("valid");
+                            upper.classList.remove("invalid");
+                        } else {
+                            upper.classList.add("invalid");
+                            upper.classList.remove("valid");
+                        }
+
+                        // Number
+                        if (/[0-9]/.test(value)) {
+                            number.classList.add("valid");
+                            number.classList.remove("invalid");
+                        } else {
+                            number.classList.add("invalid");
+                            number.classList.remove("valid");
+                        }
+
+                        // Length
+                        if (value.length >= 8) {
+                            length.classList.add("valid");
+                            length.classList.remove("invalid");
+                        } else {
+                            length.classList.add("invalid");
+                            length.classList.remove("valid");
+                        }
+
+                        // Check all valid
+                        const allValid =
+                            lower.classList.contains("valid") &&
+                            upper.classList.contains("valid") &&
+                            number.classList.contains("valid") &&
+                            length.classList.contains("valid");
+
+                        submitBtn.disabled = !allValid;
+                    };
+                </script>
+            </div>
+    </section>
+
+    <div class="footer text-center">
+        © <span class="text-dark" id="year"></span> AI Tactical Marketing. All rights reserved.
+    </div>
+</body>
+
+</html>
