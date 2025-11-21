@@ -132,73 +132,28 @@
                 </div>
 
                 <script>
-                    const password = document.getElementById("pass");
+                    document.querySelector("form").addEventListener("submit", async (e) => {
+                        e.preventDefault();
 
-                    const lower = document.getElementById("lower");
-                    const upper = document.getElementById("upper");
-                    const number = document.getElementById("number");
-                    const length = document.getElementById("length");
+                        const email = document.getElementById("email").value;
+                        const password = document.getElementById("pass").value;
 
-                    const submitBtn = document.getElementById("submit");
-                    const rulesBox = document.getElementById("message");
+                        const response = await fetch("http://localhost:3000/register", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email, password })
+                        });
 
-                    password.onfocus = () => {
-                        rulesBox.style.display = "block";
-                    };
+                        const data = await response.json();
 
-                    password.onblur = () => {
-                        rulesBox.style.display = "none";
-                    };
-
-                    password.onkeyup = () => {
-                        const value = password.value;
-
-                        // Lowercase
-                        if (/[a-z]/.test(value)) {
-                            lower.classList.add("valid");
-                            lower.classList.remove("invalid");
+                        if (data.success) {
+                            alert("Account created successfully!");
                         } else {
-                            lower.classList.add("invalid");
-                            lower.classList.remove("valid");
+                            alert("Error: " + data.message);
                         }
-
-                        // Uppercase
-                        if (/[A-Z]/.test(value)) {
-                            upper.classList.add("valid");
-                            upper.classList.remove("invalid");
-                        } else {
-                            upper.classList.add("invalid");
-                            upper.classList.remove("valid");
-                        }
-
-                        // Number
-                        if (/[0-9]/.test(value)) {
-                            number.classList.add("valid");
-                            number.classList.remove("invalid");
-                        } else {
-                            number.classList.add("invalid");
-                            number.classList.remove("valid");
-                        }
-
-                        // Length
-                        if (value.length >= 8) {
-                            length.classList.add("valid");
-                            length.classList.remove("invalid");
-                        } else {
-                            length.classList.add("invalid");
-                            length.classList.remove("valid");
-                        }
-
-                        // Check all valid
-                        const allValid =
-                            lower.classList.contains("valid") &&
-                            upper.classList.contains("valid") &&
-                            number.classList.contains("valid") &&
-                            length.classList.contains("valid");
-
-                        submitBtn.disabled = !allValid;
-                    };
+                    });
                 </script>
+
             </div>
     </section>
 
